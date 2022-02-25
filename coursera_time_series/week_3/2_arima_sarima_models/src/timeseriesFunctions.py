@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from statsmodels.tsa.stattools import adfuller
+from dateutil.relativedelta import relativedelta
 
 def plot_time_series(x,y, title= "Title", xlabel= "time", ylabel= "series"):
     plt.plot(x,y,'k-')
@@ -45,3 +46,14 @@ def dickey_fuller_test(timeseries):
     plt.legend(loc= "best")
     plt.grid()
     plt.show()
+
+def future_preds_df(model,series,num_months):
+    """
+    Generate a df with model predictions
+    """
+    pred_first = series.index.max()+relativedelta(months=1)
+    pred_last = series.index.max()+relativedelta(months=num_months)
+    date_range_index = pd.date_range(pred_first,pred_last,freq = 'MS')
+    vals = model.predict(n_periods = num_months)
+    return pd.DataFrame(vals,index = date_range_index)
+
