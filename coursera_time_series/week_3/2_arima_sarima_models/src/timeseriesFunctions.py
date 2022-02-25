@@ -57,3 +57,18 @@ def future_preds_df(model,series,num_months):
     vals = model.predict(n_periods = num_months)
     return pd.DataFrame(vals,index = date_range_index)
 
+# def MAPE(predictions, actuals):
+#     """
+#     Implements Mean Absolute Percent Error (MAPE).
+#     Args:
+#         predictions (array like): a vector of predicted values.
+#         actuals (array like): a vector of actual values.
+
+#     Returns:
+#         numpy.float: MAPE value
+#     """
+#     if not (isinstance(actuals, pd.Series) and isinstance(predictions, pd.Series)):
+#         predictions, actuals = pd.Series(predictions), pd.Series(actuals)
+#     return ((predictions - actuals).abs() / actuals).mean()
+
+
