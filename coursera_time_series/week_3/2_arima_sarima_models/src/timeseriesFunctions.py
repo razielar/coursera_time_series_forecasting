@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from statsmodels.tsa.stattools import adfuller
 from dateutil.relativedelta import relativedelta
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 def plot_time_series(x,y, title= "Title", xlabel= "time", ylabel= "series"):
     plt.plot(x,y,'k-')
