@@ -4,3 +4,4 @@
 *.xls
 *.npy
 __pycache__
+*.pkl
