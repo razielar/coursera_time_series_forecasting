@@ -1,11 +1,13 @@
-# Time Series forecasting
+# Time series analysis
 
-1. [Prophet](#prophet)
-2. [Coursera: Specialized Models: Time Series and Survival Analysis](#coursera)
+# Survival analysis
 
-## 1) <a id='prophet'></a>Prophet
+<!-- 1. [Prophet](#prophet) -->
+<!-- 2. [Coursera: Specialized Models: Time Series and Survival Analysis](#coursera) -->
 
-Prophet playground obtained from [here](https://www.youtube.com/watch?v=KvLG1uTC-KU&list=LL&index=17)
+<!-- ## 1) <a id='prophet'></a>Prophet -->
 
-## 2) <a id='coursera'></a>Coursera: Specialized Models: Time Series and Survival Analysis
+<!-- Prophet playground obtained from [here](https://www.youtube.com/watch?v=KvLG1uTC-KU&list=LL&index=17) -->
+
+<!-- ## 2) <a id='coursera'></a>Coursera: Specialized Models: Time Series and Survival Analysis -->
 
