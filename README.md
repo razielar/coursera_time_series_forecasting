@@ -1,5 +1,18 @@
 # Time series analysis
 
+## Week 1
+
+### 1.1) Introduction to Forecasting and Time series analysis
+
+### 1.2) Time series Decomposition
+
+## Week 2
+
+## Week 3
+
+## Week 4
+
+
 # Survival analysis
 
 <!-- 1. [Prophet](#prophet) -->
