@@ -5,7 +5,7 @@
 # Exploratory Data Analysis (EDA)  
 # Feb 16th 2021
 
-# In[17]:
+# In[2]:
 
 
 import sys
@@ -21,21 +21,22 @@ from IPython.display import display
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf, month_plot, quarter_plot
 import warnings
 warnings.filterwarnings('ignore')
-# Config:
-pd.options.display.float_format = '{:,.2f}'.format
-plotsize = (20, 8)
-sns.set_context("paper", font_scale= 1.3)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plt.rcParams['figure.figsize']= plotsize
+
+
+# In[3]:
+
+
+# Custom functions:
+import src.colorsetup
+data_path= '../course_data/1_intro_forecasting_ts_analysis/'
 
 
 # ## Input Data
 
-# In[2]:
+# In[4]:
 
 
-df= pd.read_excel('../course_data/sample-superstore.xls')
+df= pd.read_excel(data_path+'sample-superstore.xls')
 print(df.shape)
 df.head()
 
@@ -43,7 +44,7 @@ df.head()
 # ## Pre-processing
 # Set-up data monthly
 
-# In[9]:
+# In[5]:
 
 
 # Select data
@@ -58,7 +59,7 @@ prof_month= prof_pivot.resample('M').sum()
 prof_month.head(12)
 
 
-# In[12]:
+# In[6]:
 
 
 prof_month.index
@@ -66,10 +67,12 @@ prof_month.index
 
 # ## Visualizations
 
-# In[16]:
+# In[15]:
 
 
 fig, axes= plt.subplots(3,2)
+fig.set_figwidth(16)
+fig.set_figheight(7)
 
 for i, cat in enumerate(['Consumer', 'Corporate', 'Home Office']):
     for j, money in enumerate(['Sales', 'Profit']):
@@ -81,10 +84,12 @@ fig.tight_layout()
 plt.show()
 
 
-# In[18]:
+# In[17]:
 
 
 fig, axes= plt.subplots(3,2)
+fig.set_figwidth(16)
+fig.set_figheight(7)
 
 for i, cat in enumerate(['Consumer', 'Corporate', 'Home Office']):
     for j, money in enumerate(['Sales', 'Profit']):
@@ -94,10 +99,12 @@ fig.tight_layout()
 plt.show()
 
 
-# In[19]:
+# In[18]:
 
 
 fig, axes= plt.subplots(3,2)
+fig.set_figwidth(16)
+fig.set_figheight(7)
 
 for i, cat in enumerate(['Consumer', 'Corporate', 'Home Office']):
     for j, money in enumerate(['Sales', 'Profit']):
@@ -109,7 +116,7 @@ plt.show()
 
 # Develop a function for EDA
 
-# In[22]:
+# In[27]:
 
 
 cat_var = 'Region'
@@ -127,7 +134,7 @@ def monthly_eda(cat_var=cat_var,
     prof_month = prof_pivot.resample('M').sum()
     prof_month.head()
 
-    fig,axes = plt.subplots(num_cats*3, 2, figsize=(20, 5*num_cats),)
+    fig,axes = plt.subplots(num_cats*3, 2, figsize=(16, 5*num_cats),)
     for i,cat in enumerate(cats):
         for j,money in enumerate(money_vars):
             axes[i,j].plot(prof_month[money,cat])
@@ -140,16 +147,17 @@ def monthly_eda(cat_var=cat_var,
     plt.show()
 
 
-# In[23]:
+# In[28]:
 
 
 monthly_eda(cat_var='Region')
 
 
-# In[ ]:
+# In[29]:
 
 
-
+import session_info
+session_info.show()
 
 
 # In[ ]:
