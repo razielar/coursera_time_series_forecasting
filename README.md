@@ -8,12 +8,27 @@
 
 ## Week 2
 
+### 2.1) Stationarity and Autocorrelation
+
+### 2.2) Time series Smoothing
+
 ## Week 3
+
+### 3.1) ARMA models
+
+### 3.2) ARIMA and SARIMA models
+
+### 3.3) Facebook Prophet
 
 ## Week 4
 
+### 4.1) Deep Learning for Forecasting 
+RNN and LSTM
+
 
 # Survival analysis
+
+
 
 <!-- 1. [Prophet](#prophet) -->
 <!-- 2. [Coursera: Specialized Models: Time Series and Survival Analysis](#coursera) -->
