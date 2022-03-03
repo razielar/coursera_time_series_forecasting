@@ -4,7 +4,7 @@
 # # Construct Trend, Seasonality, and Residual components
 # Feb 17th 2021
 
-# In[19]:
+# In[2]:
 
 
 import sys
@@ -17,31 +17,32 @@ import matplotlib.pyplot as plt
 # %matplotlib inline
 import seaborn as sns
 from IPython.display import display
-# Config:
-pd.options.display.float_format = '{:,.2f}'.format
-plotsize = (13, 5)
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plt.rcParams['figure.figsize']= plotsize
 SEED=10
 
 
 # In[3]:
 
 
+# Custom functions:
+import src.colorsetup
+data_path= '../course_data/1_intro_forecasting_ts_analysis/'
+
+
+# In[4]:
+
+
 time= np.arange(1,51)
 time
 
 
-# In[6]:
+# In[5]:
 
 
 trend= time * 2.75
 trend
 
 
-# In[13]:
+# In[6]:
 
 
 plt.plot(time, trend, 'b.')
@@ -51,7 +52,7 @@ plt.ylabel('Electricity')
 plt.show()
 
 
-# In[18]:
+# In[7]:
 
 
 seasonal= 10+np.sin(time)*10
@@ -62,7 +63,7 @@ plt.ylabel('Electricity')
 plt.show()
 
 
-# In[22]:
+# In[8]:
 
 
 np.random.seed(SEED)
@@ -78,7 +79,7 @@ plt.show()
 
 # ### Additive model
 
-# In[24]:
+# In[9]:
 
 
 additive= trend + seasonal + residual
@@ -91,7 +92,7 @@ plt.show()
 
 # ### Multiplicative models
 
-# In[29]:
+# In[10]:
 
 
 ignore_residuals= np.ones_like(residual)
@@ -105,7 +106,7 @@ plt.show()
 
 # ## Analysis of new data
 
-# In[37]:
+# In[11]:
 
 
 time= np.arange(0, 50)
@@ -115,7 +116,7 @@ data_a= np.load(data_path+"dataset_A.npy")
 data_b= np.load(data_path+"dataset_B.npy")
 
 
-# In[44]:
+# In[12]:
 
 
 plt.plot(time, data_a)
@@ -124,13 +125,26 @@ plt.grid(alpha= 0.4)
 plt.show()
 
 
-# In[46]:
+# In[13]:
 
 
 plt.plot(time, data_b)
 plt.title("Probably: additive")
 plt.grid(alpha= 0.4)
 plt.show()
+
+
+# In[14]:
+
+
+import session_info
+session_info.show()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:

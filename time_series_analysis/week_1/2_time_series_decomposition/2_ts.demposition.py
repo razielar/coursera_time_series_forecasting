@@ -4,7 +4,7 @@
 # # Time Series Decomposition
 # Feb 21st 2021
 
-# In[33]:
+# In[2]:
 
 
 import sys
@@ -20,18 +20,19 @@ from IPython.display import display
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.graphics.tsaplots import plot_acf
 # Config:
-pd.options.display.float_format = '{:,.2f}'.format
-plotsize = (13, 5)
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plt.rcParams['figure.figsize']= plotsize
 SEED=10
+
+
+# In[3]:
+
+
+# Custom functions:
+import src.colorsetup
 
 
 # ### Additive decomposition
 
-# In[5]:
+# In[4]:
 
 
 time= np.arange(1,51)
@@ -51,7 +52,7 @@ plt.ylabel('Electricity')
 plt.show()
 
 
-# In[10]:
+# In[5]:
 
 
 ss_decomposition= seasonal_decompose(x= additive, model= "additive", period= 6)
@@ -60,7 +61,7 @@ estimated_seasonal= ss_decomposition.seasonal
 estimated_residual= ss_decomposition.resid
 
 
-# In[63]:
+# In[6]:
 
 
 fig, axes= plt.subplots(2,2, sharex= True)
@@ -84,7 +85,7 @@ plt.show()
 
 # ### Multiplicative Decomposition
 
-# In[25]:
+# In[7]:
 
 
 ignore_residuals= np.ones_like(residual)
@@ -96,7 +97,7 @@ plt.ylabel('Electricity')
 plt.show()
 
 
-# In[27]:
+# In[8]:
 
 
 ss_decompsition= seasonal_decompose(x= multiplicative, model= "multiplicative", period= 6)
@@ -105,7 +106,7 @@ estimated_seasonal= ss_decompsition.seasonal
 estimated_residual= ss_decompsition.resid
 
 
-# In[62]:
+# In[9]:
 
 
 fig, axes= plt.subplots(2,2, sharex= True)
@@ -129,7 +130,7 @@ plt.show()
 
 # ## Exercises
 
-# In[47]:
+# In[10]:
 
 
 time= np.arange(0, 50)
@@ -139,7 +140,7 @@ data_a= np.load(data_path+"dataset_A.npy")
 data_b= np.load(data_path+"dataset_B.npy")
 
 
-# In[54]:
+# In[11]:
 
 
 plt.plot(data_a)
@@ -148,7 +149,7 @@ plt.grid(alpha= 0.4)
 plt.show()
 
 
-# In[67]:
+# In[12]:
 
 
 plt.plot(time, data_b)
@@ -159,7 +160,7 @@ plt.show()
 
 # ### Decompose Dataset A & B
 
-# In[74]:
+# In[13]:
 
 
 ss_decomposition_multi= seasonal_decompose(x= data_a, model= "multiplicative", period= 11)
@@ -177,13 +178,13 @@ estimated_residual_add = ss_decomposition_add.resid
 
 # Dataset A
 
-# In[75]:
+# In[14]:
 
 
 acf_a= plot_acf(data_a)
 
 
-# In[76]:
+# In[15]:
 
 
 fig, axes= plt.subplots(2,2, sharex= True, sharey= False)
@@ -205,7 +206,7 @@ axes[1,1].legend(loc='upper left')
 plt.show()
 
 
-# In[85]:
+# In[16]:
 
 
 fig, axes= plt.subplots(2,2, sharex= True, sharey= False)
@@ -225,6 +226,19 @@ axes[1,1].plot(estimated_residual_add, label= "Residuals")
 axes[1,1].legend(loc= "upper left")
 
 plt.show()
+
+
+# In[17]:
+
+
+import session_info
+session_info.show()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
