@@ -4,7 +4,7 @@
 # # Survival Analysis
 # March 3th 2022
 
-# In[21]:
+# In[1]:
 
 
 import sys
@@ -26,11 +26,12 @@ from lifelines import KaplanMeierFitter, CoxPHFitter
 
 # Custom functions:
 import src.colorsetup
+image_path= '../plots/survival_analysis/'
 
 
 # ## Input Data
 
-# In[6]:
+# In[3]:
 
 
 data_path= 'course_data/'
@@ -39,7 +40,7 @@ display(df.head())
 print(df.shape)
 
 
-# In[11]:
+# In[4]:
 
 
 # Plot churn values
@@ -54,7 +55,7 @@ plt.show()
 
 # ## Plot the Kaplan-Meier Curve
 
-# In[20]:
+# In[5]:
 
 
 kmf= KaplanMeierFitter()
@@ -66,7 +67,7 @@ plt.ylabel("Survival probability")
 plt.show()
 
 
-# In[53]:
+# In[6]:
 
 
 # Let's inspect multiple services variable
@@ -84,8 +85,10 @@ df2.groupby('churn_value')['months'].plot(kind= 'hist', ax= axes[1], title= "Cus
 plt.show()
 
 
-# In[51]:
+# In[7]:
 
+
+plot_name= 'kaplan-meier-curve.png'
 
 kmf.fit(df1.months, df1.churn_value)
 kmf.plot(label= "Multiple Services")
@@ -94,12 +97,14 @@ kmf.plot(label= "Single Service")
 plt.title("Assess Services")
 plt.ylabel('Survival probability')
 plt.xlabel('Time (months)')
+
+plt.savefig(image_path+plot_name, transparent= True, bbox_inches= 'tight')
 plt.show()
 
 
 # ## Cox Proportional Hazard model
 
-# In[65]:
+# In[8]:
 
 
 dfu= df[['multiple', 'churn_value']]
@@ -111,7 +116,7 @@ dfd.rename(columns= {'multiple_Yes': 'multiple_services'}, inplace= True)
 dfd.head()
 
 
-# In[66]:
+# In[9]:
 
 
 cph= CoxPHFitter()
@@ -121,14 +126,14 @@ cph.print_summary()
 
 # P-value is significant, and multitple_services coefficient is negative which means it's important (the lower => the better)
 
-# In[68]:
+# In[10]:
 
 
 cph.plot()
 plt.show()
 
 
-# In[79]:
+# In[11]:
 
 
 cph.plot_partial_effects_on_outcome(covariates= 'multiple_services', values= [1,0], plot_baseline= False, lw= 4)
@@ -137,7 +142,7 @@ plt.show()
 
 # ## Use more variables to fit Cox-proportional Hazard model
 
-# In[89]:
+# In[12]:
 
 
 df_more_var= df[['churn_value', 'satisfaction', 'security', 'backup', 'support']]
@@ -150,33 +155,43 @@ dummy_df['months']= df.months
 dummy_df.head()
 
 
-# In[91]:
+# In[13]:
 
 
 new_model= CoxPHFitter().fit(dummy_df, duration_col= 'months', event_col= 'churn_value')
 new_model.print_summary()
 
 
-# In[96]:
+# In[14]:
 
+
+plot_name= 'cph.model.feature.importance.png'
 
 print("Satisfaciton is the most important feature for our model")
 new_model.plot()
+plt.savefig(image_path+plot_name, transparent= True, bbox_inches= 'tight')
 plt.show()
 
 
-# In[97]:
+# In[15]:
 
+
+plot_name= 'partial.effects.cph.model.png'
 
 print("There's a clear difference among the levels of satisfaction")
 new_model.plot_partial_effects_on_outcome(covariates= 'satisfaction', values= [5,4,3,2,1], plot_baseline= False, lw= 4)
+
+plt.ylabel('Survival probability')
+plt.xlabel('Time (months)')
+plt.savefig(image_path+plot_name, transparent= True, bbox_inches= 'tight')
 plt.show()
 
 
-# In[ ]:
+# In[18]:
 
 
-
+import session_info
+session_info.show()
 
 
 # In[ ]:
