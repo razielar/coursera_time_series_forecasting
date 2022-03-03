@@ -28,7 +28,7 @@ RNN and LSTM
 
 # Survival analysis
 
-
+Surviving analysis main ideas such as: survival function, hazard rate, Kaplan-Meier Curve, and survival regression approachas such as: **Cox proportional Hazard model** (CPH model), most common parametric model.
 
 <!-- 1. [Prophet](#prophet) -->
 <!-- 2. [Coursera: Specialized Models: Time Series and Survival Analysis](#coursera) -->
