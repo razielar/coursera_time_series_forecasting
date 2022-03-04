@@ -4,7 +4,7 @@
 # # Smoothing Time-series
 # Feb 22nd 2022
 
-# In[1]:
+# In[4]:
 
 
 import sys
@@ -14,24 +14,24 @@ import pandas as pd
 import os
 print(os.getcwd())
 import matplotlib.pyplot as plt
-# %matplotlib inline
 import seaborn as sns
 from IPython.display import display
 import statsmodels as ss
 # Advanced smoothing techniques:
 from statsmodels.tsa.api import SimpleExpSmoothing, Holt, ExponentialSmoothing
 from sklearn.metrics import mean_squared_error
-from src.timeseriesFunctions import plot_time_series, chunks_statistics
 SEED= 42
-pd.options.display.float_format = '{:,.2f}'.format
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plotsize = (13, 5)
-plt.rcParams['figure.figsize']= plotsize
 
 
-# In[2]:
+# In[5]:
+
+
+# Custom functions
+import src.colorsetup
+from src.timeseriesFunctions import plot_time_series, chunks_statistics
+
+
+# In[6]:
 
 
 np.random.seed(SEED)
@@ -48,7 +48,7 @@ plot_time_series(time, stationarity, title= "Stationary Time-series")
 
 # ## 1) Simple smoothing (average)
 
-# In[3]:
+# In[7]:
 
 
 stationary_av= np.mean(stationarity)
@@ -60,7 +60,7 @@ plt.legend()
 plt.show()
 
 
-# In[4]:
+# In[8]:
 
 
 # Trend
@@ -74,7 +74,7 @@ plt.show()
 
 # ## 2) Moving Average (MA)
 
-# In[5]:
+# In[9]:
 
 
 def moving_average(observations, window= 3, forecast= False):
@@ -87,7 +87,7 @@ def moving_average(observations, window= 3, forecast= False):
         return cum_sum[window -1:] / window
 
 
-# In[6]:
+# In[10]:
 
 
 smoothed_trend= moving_average(trend)
@@ -97,7 +97,7 @@ plt.legend()
 plt.show()
 
 
-# In[7]:
+# In[11]:
 
 
 seasonality= 10 + np.sin(time) * 10
@@ -108,7 +108,7 @@ plt.legend(loc= "upper left")
 plt.show()
 
 
-# In[8]:
+# In[12]:
 
 
 trend_seasonality= trend + seasonality + stationarity
@@ -119,7 +119,7 @@ plt.legend()
 plt.show()
 
 
-# In[23]:
+# In[13]:
 
 
 values= np.array([1,2,4,8,16,32,64])
@@ -136,7 +136,7 @@ plt.show()
 # * 2) **Double Exponential Smoothing**: smooth values and trend
 # * 3) **Triple Expnential Smoothing**: smooth values, trend and seasonality
 
-# In[33]:
+# In[14]:
 
 
 print("Complete TS: {}".format(len(trend_seasonality)))
@@ -148,7 +148,7 @@ print("Test: {}".format(len(test)))
 
 # ### 3.1) Single Exponential Smoothing
 
-# In[54]:
+# In[15]:
 
 
 single= SimpleExpSmoothing(train).fit(optimized= True)
@@ -165,7 +165,7 @@ plt.show()
 
 # ### 3.2) Double Exponential Smoothing
 
-# In[67]:
+# In[16]:
 
 
 double= Holt(train).fit(optimized= True)
@@ -182,7 +182,7 @@ plt.show()
 
 # ### 3.3) Triple Exponential
 
-# In[80]:
+# In[17]:
 
 
 triple= ExponentialSmoothing(train, trend= "additive", seasonal= "additive", seasonal_periods= 13).fit(optimized= True)
@@ -197,7 +197,7 @@ plt.legend()
 plt.show()
 
 
-# In[83]:
+# In[18]:
 
 
 data_dict= {"MSE": [single_mse, double_mse, triple_mse]}
@@ -206,7 +206,7 @@ pd.DataFrame(data_dict, index= ["Single", "Double", "Triple"])
 
 # # Exercises
 
-# In[5]:
+# In[19]:
 
 
 path= "../course_data/time_series_smoothing/"
@@ -215,14 +215,14 @@ smooth_2= np.load(path + "smooth_2.npy")
 mytime= np.arange(len(smooth_1))
 
 
-# In[3]:
+# In[20]:
 
 
 plt.plot(smooth_1)
 plt.show()
 
 
-# In[4]:
+# In[21]:
 
 
 plt.plot(smooth_2)
@@ -231,7 +231,7 @@ plt.show()
 
 # Train/test split
 
-# In[15]:
+# In[22]:
 
 
 print("Dataset lenght: {}".format(len(smooth_1)))
@@ -244,7 +244,7 @@ test_2= smooth_2[-test_size:]
 print("Test size: {}".format(len(test_1)))
 
 
-# In[17]:
+# In[23]:
 
 
 model_1 = ExponentialSmoothing(train_1, damped_trend=True,
@@ -261,7 +261,7 @@ preds_1 = model_1.forecast(len(test_2))
 preds_2 = model_2.forecast(len(test_2))
 
 
-# In[22]:
+# In[24]:
 
 
 mse_1= mean_squared_error(test_1, preds_1)
@@ -271,7 +271,7 @@ print("MSE 1: {:.4f}\nMSE 2: {:.4f}".format(mse_1, mse_2))
 
 # Plot train, test and forecast
 
-# In[57]:
+# In[25]:
 
 
 # Dataset 1:
@@ -285,7 +285,7 @@ plt.grid()
 plt.show()
 
 
-# In[58]:
+# In[26]:
 
 
 print("MSE 2: {:.2f}".format(mse_2))
@@ -296,6 +296,19 @@ plt.title("Dataset 2")
 plt.legend(loc= "upper left")
 plt.grid()
 plt.show()
+
+
+# In[27]:
+
+
+import session_info
+session_info.show()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
