@@ -4,7 +4,7 @@
 # # ARMA Exercises
 # Feb 24th 2022
 
-# In[5]:
+# In[3]:
 
 
 import sys
@@ -20,17 +20,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
-pd.options.display.float_format = '{:,.2f}'.format
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plotsize = (13, 5)
-plt.rcParams['figure.figsize']= plotsize
+
+
+# In[4]:
+
+
+# Custom functions:
+import src.colorsetup
 
 
 # ## Input data
 
-# In[14]:
+# In[5]:
 
 
 data_path= "course_data/"
@@ -42,7 +43,7 @@ display(ex_2.head())
 mytime= np.arange(ex_1.shape[0])
 
 
-# In[30]:
+# In[6]:
 
 
 auto_1= ex_1.values.reshape(-1)
@@ -62,7 +63,7 @@ plt.show()
 
 # ## Determine p & q
 
-# In[34]:
+# In[7]:
 
 
 fig_p1= plot_pacf(auto_1)
@@ -70,7 +71,7 @@ fig_p1= plot_pacf(auto_1)
 fig_p2= plot_pacf(auto_2)
 
 
-# In[32]:
+# In[8]:
 
 
 fig_a1= plot_acf(auto_1)
@@ -81,16 +82,35 @@ fig_a2= plot_acf(auto_2)
 # For auto_1; p= 2  
 # For auto_2; q= 1
 
-# In[41]:
+# In[9]:
 
 
 model_1= ARIMA(auto_1, order= (2,0,0)).fit()
 print("Auto_1 parameters: {}".format(model_1.params[1:3]))
 
 
-# In[45]:
+# In[11]:
 
 
 model_2= ARIMA(auto_2, order= (0,0,1)).fit()
 print("Auto_2 parameters: {:.4f}".format(model_2.params[1]))
+
+
+# In[13]:
+
+
+import session_info
+session_info.show()
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 

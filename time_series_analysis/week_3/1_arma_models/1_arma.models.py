@@ -4,7 +4,7 @@
 # # ARMA models
 # Feb 23th 2021
 
-# In[127]:
+# In[3]:
 
 
 import sys
@@ -22,19 +22,19 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.arima_process import arma_generate_sample
 from statsmodels.graphics.api import qqplot
 from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
+
+
+# In[2]:
+
+
 # Custom functions:
 from src.timeseriesFunctions import plot_time_series
-pd.options.display.float_format = '{:,.2f}'.format
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plotsize = (13, 5)
-plt.rcParams['figure.figsize']= plotsize
+import src.colorsetup
 
 
 # ## 1) Autoregressive (AR) models
 
-# In[135]:
+# In[4]:
 
 
 np.random.seed(123)
@@ -58,13 +58,13 @@ plt.tight_layout()
 plt.show()
 
 
-# In[128]:
+# In[5]:
 
 
 fig_ar1= plot_pacf(ar1_sample, lags= range(0,30), alpha= 0.05)
 
 
-# In[54]:
+# In[6]:
 
 
 model= ARIMA(ar1_sample, order= (1,0,0)).fit()
@@ -74,7 +74,7 @@ model= ARIMA(ar1_sample, order= (1,0,0)).fit()
 print("Betha-produced: 0.7\nBetha-estimated: {:.2f}".format(model.params[1]))
 
 
-# In[134]:
+# In[7]:
 
 
 # Second estimation: 
@@ -99,13 +99,13 @@ plt.tight_layout()
 plt.show()
 
 
-# In[129]:
+# In[8]:
 
 
 fig_ar2= plot_pacf(ar2_sample)
 
 
-# In[130]:
+# In[9]:
 
 
 model= ARIMA(ar2_sample, order= (2,0,0)).fit()
@@ -115,7 +115,7 @@ print("Betha-1: {:.4f} and Betha-2: {:.4f}".format(model.params[1], model.params
 
 # You can generate AR sample data with: **arma_generate_sample**
 
-# In[137]:
+# In[10]:
 
 
 # Generate an AR dataset through arma_generate_sample
@@ -129,7 +129,7 @@ plt.fill_between(time,y)
 plt.show()
 
 
-# In[74]:
+# In[11]:
 
 
 model= ARIMA(y, order= (2,0,0)).fit()
@@ -139,7 +139,7 @@ print("Betha 1: {:.4f}, Betha 2: {:.4f}".format(model.params[1], model.params[2]
 # ## 2) Moving Average (MA) models
 # MA models != MA smoothing
 
-# In[139]:
+# In[12]:
 
 
 np.random.seed(12)
@@ -164,20 +164,20 @@ plt.tight_layout()
 plt.show()
 
 
-# In[120]:
+# In[13]:
 
 
 fig_ma1= plot_acf(ma1_sample)
 
 
-# In[92]:
+# In[14]:
 
 
 model= ARIMA(ma1_sample, order= (0,0,1)).fit()
 print("Betha-estimation: {:.4f}".format(model.params[1]))
 
 
-# In[141]:
+# In[15]:
 
 
 # reproducibility
@@ -203,13 +203,13 @@ plt.tight_layout()
 plt.show()
 
 
-# In[122]:
+# In[16]:
 
 
 fig_ma2= plot_acf(ma2_sample)
 
 
-# In[131]:
+# In[17]:
 
 
 model= ARIMA(ma2_sample, order= (0,0,2)).fit()
@@ -218,7 +218,7 @@ print("Betha1-estimated: {:.4f}\t Betha2-estimated: {:.4f}".format(model.params[
 
 # You can generate AR sample data with: **arma_generate_sample**
 
-# In[105]:
+# In[18]:
 
 
 # Below is function to help in generating different series
@@ -233,11 +233,30 @@ plt.fill_between(time, y)
 plt.show()
 
 
-# In[107]:
+# In[19]:
 
 
 model= ARIMA(y, order= (0,0,2)).fit()
 print("Betha1-estimated: {:.4f}\t Betha2-estimated: {:.4f}".format(model.params[1], model.params[2]))
+
+
+# In[20]:
+
+
+import session_info
+session_info.show()
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
