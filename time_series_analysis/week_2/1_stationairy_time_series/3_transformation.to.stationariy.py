@@ -4,7 +4,7 @@
 # # Common Nonstationary to Stationary Transformations
 # Feb 21st 2022
 
-# In[2]:
+# In[3]:
 
 
 import sys
@@ -22,15 +22,15 @@ from statsmodels.tsa.stattools import adfuller # Augmented Dickey-Fuller test
 from statsmodels.tsa.seasonal import seasonal_decompose
 # Config:
 SEED= 42
-pd.options.display.float_format = '{:,.2f}'.format
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plotsize = (13, 5)
-plt.rcParams['figure.figsize']= plotsize
 
 
-# In[3]:
+# In[4]:
+
+
+import src.colorsetup
+
+
+# In[5]:
 
 
 np.random.seed(SEED)
@@ -45,7 +45,7 @@ trend_seasonality= trend + seasonality + stationary
 plot_time_series(time, trend_seasonality, title= "Trend Seasonality")
 
 
-# In[4]:
+# In[6]:
 
 
 adf_b4, pvalue_b4, usedlag_, nobs_, critical_values_, icbest_ = adfuller(trend_seasonality)
@@ -55,7 +55,7 @@ print("p-value: ", np.round(pvalue_b4, 4))
 
 # ## Exercise 1: Remove Trend & Seasonality with Statsmodels
 
-# In[5]:
+# In[7]:
 
 
 ss_decomposition = seasonal_decompose(x=trend_seasonality, model='additive', period=6)
@@ -69,7 +69,7 @@ plt.show()
 plot_time_series(time, est_residual, title= "Residuals")
 
 
-# In[6]:
+# In[8]:
 
 
 adf_after, pvalue_after, usedlag_, nobs_, critical_values_, icbest_ = adfuller(est_residual[3:-3])
@@ -83,7 +83,7 @@ print("p-value: ", np.round(pvalue_after, 6))
 
 # ## Exercise 4: Do it with example data
 
-# In[7]:
+# In[9]:
 
 
 mytime= np.arange(100)
@@ -94,7 +94,7 @@ dataset_2= np.load(data_path + "dataset_SNS_2.npy")
 
 # Dataset 1
 
-# In[8]:
+# In[10]:
 
 
 plot_time_series(mytime, dataset_1, title= "Dataset 1")
@@ -103,7 +103,7 @@ plt.show()
 plot_time_series(mytime, log_dataset1, title= "Dataset 1 log transformation")
 
 
-# In[9]:
+# In[11]:
 
 
 plot_time_series(mytime, dataset_1, title= "Dataset 1")
@@ -112,7 +112,7 @@ plot_time_series(mytime, log_dataset1, title= "Dataset 1 log transformation")
 
 # Dataset 2
 
-# In[10]:
+# In[12]:
 
 
 plot_time_series(mytime, dataset_2, title= "Dataset 2")
@@ -122,14 +122,14 @@ dataset2_diff= dataset_2[:-1] - dataset_2[1:]
 plot_time_series(mytime[:-1], dataset2_diff, title= "Dataset 2 Differenced")
 
 
-# In[11]:
+# In[13]:
 
 
 tmp= np.log(dataset2_diff+25)
 plot_time_series(mytime[:-1], tmp, title= "Dataset 2 Differenced and Log")
 
 
-# In[12]:
+# In[14]:
 
 
 chunks1= np.split(log_dataset1, indices_or_sections= 10)
@@ -146,7 +146,7 @@ print("Dataset 2: Diff and log")
 chunks_statistics(chunks_3)
 
 
-# In[13]:
+# In[15]:
 
 
 pd.Series(log_dataset1).hist()
@@ -157,7 +157,7 @@ plt.show()
 
 # Agumented Dickey-Fuller test
 
-# In[14]:
+# In[16]:
 
 
 adf_1, pvalue_1, usedlag_, nobs_, critical_values_1, icbest_ = adfuller(log_dataset1)
@@ -167,7 +167,7 @@ print("p-value:", pvalue_1)
 print("crit values: ", critical_values_1)
 
 
-# In[15]:
+# In[17]:
 
 
 adf_2, pvalue_2, usedlag_, nobs_, critical_values_2, icbest_ = adfuller(dataset2_diff)
@@ -177,7 +177,7 @@ print("p-value:", pvalue_2)
 print("crit values: ", critical_values_2)
 
 
-# In[16]:
+# In[19]:
 
 
 adf_2, pvalue_2, usedlag_, nobs_, critical_values_2, icbest_ = adfuller(tmp)
@@ -185,4 +185,17 @@ print("dataset_SNS_1")
 print("ADF: ", adf_2)
 print("p-value:", pvalue_2)
 print("crit values: ", critical_values_2)
+
+
+# In[20]:
+
+
+import session_info
+session_info.show()
+
+
+# In[ ]:
+
+
+
 
