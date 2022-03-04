@@ -4,7 +4,7 @@
 # # Playground to understand Differencing
 # Feb 24th 2022
 
-# In[1]:
+# In[3]:
 
 
 import sys
@@ -16,15 +16,17 @@ print(os.getcwd())
 from IPython.display import display
 import seaborn as sns
 import matplotlib.pyplot as plt
+
+
+# In[4]:
+
+
+# Import custom functions
+import src.colorsetup
 pd.options.display.float_format = '{:,.4f}'.format
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
-plotsize = (13, 5)
-plt.rcParams['figure.figsize']= plotsize
 
 
-# In[2]:
+# In[5]:
 
 
 play= pd.DataFrame([[i for i in range(1,11)], [i**2 for i in range(1,11)]]).T
@@ -32,13 +34,13 @@ play.columns = ["original", "squared"]
 play
 
 
-# In[3]:
+# In[6]:
 
 
 play.original.diff()
 
 
-# In[4]:
+# In[9]:
 
 
 fig, axes = plt.subplots(1,3, figsize= (18,5))
@@ -53,10 +55,17 @@ axes[2].set_title("Second diff")
 plt.show()
 
 
-# In[5]:
+# In[10]:
 
 
 play.squared.diff().diff()
+
+
+# In[11]:
+
+
+import session_info
+session_info.show()
 
 
 # In[ ]:
