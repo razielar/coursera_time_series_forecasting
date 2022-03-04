@@ -4,7 +4,7 @@
 # # Stationary Time-series
 # Feb 21st 2022
 
-# In[1]:
+# In[3]:
 
 
 import sys
@@ -17,19 +17,19 @@ import matplotlib.pyplot as plt
 # %matplotlib inline
 import seaborn as sns
 from IPython.display import display
-# Config:
-pd.options.display.float_format = '{:,.2f}'.format
-sns.set_context("paper", font_scale= 1.5)
-plt.rcParams['axes.spines.right']= False
-plt.rcParams['axes.spines.top']= False
 SEED= 42
-plotsize = (13, 5)
-plt.rcParams['figure.figsize']= plotsize
+
+
+# In[4]:
+
+
+# Custom functions
+import src.colorsetup
 
 
 # ## Generate time-series data
 
-# In[2]:
+# In[5]:
 
 
 np.random.seed(SEED)
@@ -39,7 +39,7 @@ time= np.arange(100)
 stationary= np.random.normal(loc= 0, scale= 1.0, size= len(time))
 
 
-# In[3]:
+# In[6]:
 
 
 def plot_time_series(x,y, title= "Title", xlabel= "time", ylabel= "series"):
@@ -50,13 +50,13 @@ def plot_time_series(x,y, title= "Title", xlabel= "time", ylabel= "series"):
     plt.grid(alpha= 0.3)
 
 
-# In[4]:
+# In[7]:
 
 
 plot_time_series(x= time, y= stationary, title= "Stationary Time-series")
 
 
-# In[5]:
+# In[8]:
 
 
 # Generate a time-series toy example with high-autocorrelation
@@ -75,7 +75,7 @@ plot_time_series(time, lagged, title= "Non-stationary Time-series")
 # * 3) Seasonality
 # * 4) Trend + seasonality
 
-# In[6]:
+# In[9]:
 
 
 # Trend
@@ -83,7 +83,7 @@ trend= (time * 2.75) + stationary
 plot_time_series(time, trend, title= "Non-stationarity Time-series w/Trend")
 
 
-# In[7]:
+# In[10]:
 
 
 # Heteroscedasticity
@@ -98,7 +98,7 @@ heteroscedasticity = np.append(level_1, level_2)
 plot_time_series(time, heteroscedasticity, title= "Non-stationary Time-series w/heteroscedasticity")
 
 
-# In[8]:
+# In[11]:
 
 
 # Seasonality
@@ -106,7 +106,7 @@ seasonality= 10 + np.sin(time)*10
 plot_time_series(time, seasonality, title= "Non-stationary Time-series w/seasonality")
 
 
-# In[9]:
+# In[12]:
 
 
 # Trend and seasonality
@@ -116,7 +116,7 @@ plot_time_series(time, trend_seasonality, title= "Non-stationary Time-series w/T
 
 # ## Exercises
 
-# In[12]:
+# In[13]:
 
 
 mytime= np.arange(100)
@@ -125,16 +125,29 @@ dataset_1= np.load(data_path + "dataset_SNS_1.npy")
 dataset_2= np.load(data_path + "dataset_SNS_2.npy")
 
 
-# In[13]:
+# In[14]:
 
 
 plot_time_series(mytime, dataset_1, title= "Dataset 1")
 
 
-# In[14]:
+# In[15]:
 
 
 plot_time_series(mytime, dataset_2, title= "Dataset 2")
+
+
+# In[16]:
+
+
+import session_info
+session_info.show()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
